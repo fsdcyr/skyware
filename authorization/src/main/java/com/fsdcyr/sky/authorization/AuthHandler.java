@@ -14,5 +14,12 @@ public interface AuthHandler {
      * @param request
      * @return
      */
-    Object getLoginUser(HttpServletRequest request);
+    UserContext getLoginUser(HttpServletRequest request);
+
+    /**
+     * 校验请求
+     * @param request
+     * @return
+     */
+    boolean validate(HttpServletRequest request);
 }

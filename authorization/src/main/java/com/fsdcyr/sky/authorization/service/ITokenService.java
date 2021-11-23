@@ -32,6 +32,12 @@ public interface ITokenService {
     Boolean validate(String token);
 
     /**
+     * 刷新token
+     * @param token
+     */
+    void refresh(String token);
+
+    /**
      * 删除token
      * @param token
      */

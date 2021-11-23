@@ -15,5 +15,9 @@ public final class UserContextHolder {
         return USER_CONTEXT.get();
     }
 
+    public static void save(UserContext userContext) {
+        USER_CONTEXT.set(userContext);
+    }
+
 
 }

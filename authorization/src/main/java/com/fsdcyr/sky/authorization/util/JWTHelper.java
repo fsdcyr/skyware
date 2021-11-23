@@ -1,4 +1,4 @@
-package com.fsdcyr.sky.authorization;
+package com.fsdcyr.sky.authorization.util;
 
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.crypto.KeyUtil;
@@ -35,7 +35,7 @@ public final class JWTHelper {
         keyPair = KeyUtil.generateKeyPair(AlgorithmUtil.getAlgorithm(id), 1024, seed.getBytes());
     }
 
-    public static String generateToken(TokenInfoDTO tokenInfoDTO, int expire) {
+    public static String generateToken(TokenInfoDTO tokenInfoDTO, long expire) {
         JWTInfoDTO jwtInfo = new JWTInfoDTO();
         BeanUtils.copyProperties(tokenInfoDTO, jwtInfo);
         JWTSigner signer = JWTSignerUtil.createSigner(id, keyPair);

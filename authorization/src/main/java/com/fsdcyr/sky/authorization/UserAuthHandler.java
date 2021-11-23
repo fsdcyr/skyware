@@ -17,9 +17,15 @@ public class UserAuthHandler implements AuthHandler {
     private UserContextManager userContextManager;
 
     @Override
-    public Object getLoginUser(HttpServletRequest request) {
+    public UserContext getLoginUser(HttpServletRequest request) {
         return userContextManager.get(request);
 
     }
+
+    @Override
+    public boolean validate(HttpServletRequest request) {
+        return true;
+    }
+
 
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @version 1.0
  * @date 2021-11-18 5:18 下午
  */
-public abstract class UserContext implements Serializable {
+public class UserContext implements Serializable {
 
     private Integer userId;
 

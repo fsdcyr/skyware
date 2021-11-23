@@ -13,34 +13,36 @@ import java.util.Map;
  */
 @Data
 public class JWTInfoDTO implements Serializable {
+
     /**
-     * 通过 generatorJwtId 复制
+     * 避免重放攻击-暂不支持
      */
     private String jwtId;
 
     private String source;
 
-    private Integer companyId;
-
     private Integer userId;
 
-    private String phone;
+    private Integer appId;
+
+    private Integer tenantId;
+
+    private String unionId;
 
     private String openId;
 
-    private String unionId;
+    private String phone;
 
     private String nickName;
 
     private String wxId;
 
-    private String sessionID;
+    private String sessionId;
 
-    private Map<String, Object> extendMap = new HashMap<>();
-
-    private Boolean success;
+    private Map<String, Object> extendMap;
 
     public void generatorJwtId() {
         jwtId = getSource() + ":" + getUserId();
     }
+
 }

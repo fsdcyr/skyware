@@ -37,6 +37,7 @@ public class UserContextManager {
         long expires = getExpires();
         redisTemplate.opsForValue().set(contextKey, userContext, expires, TimeUnit.SECONDS);
         userContext.setToken(token);
+        UserContextHolder.save(userContext);
     }
 
     public UserContext get(HttpServletRequest request) {

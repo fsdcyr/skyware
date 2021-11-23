@@ -1,6 +1,7 @@
 package com.fsdcyr.sky.authorization.service.impl;
 
-import com.fsdcyr.sky.authorization.JWTHelper;
+import com.fsdcyr.sky.authorization.service.TokenExpireStrategy;
+import com.fsdcyr.sky.authorization.util.JWTHelper;
 import com.fsdcyr.sky.authorization.dto.TokenInfoDTO;
 import com.fsdcyr.sky.authorization.service.ITokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,12 @@ public class TokenServiceImpl implements ITokenService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private TokenExpireStrategy tokenExpireStrategy;
+
     @Override
     public String sign(TokenInfoDTO tokenInfoDTO) {
-        int expire = 1000000;
+        long expire = tokenExpireStrategy.getExpire(tokenInfoDTO.getSource());
         String token = JWTHelper.generateToken(tokenInfoDTO, expire);
         redisTemplate.opsForValue().set(token, tokenInfoDTO, expire, TimeUnit.SECONDS);
         return token;
@@ -43,6 +47,11 @@ public class TokenServiceImpl implements ITokenService {
     @Override
     public Boolean validate(String token) {
         return null;
+    }
+
+    @Override
+    public void refresh(String token) {
+
     }
 
     @Override

@@ -18,17 +18,17 @@ public class TokenInfoDTO implements Serializable {
 
     private Integer appId;
 
-    private Integer companyId;
+    private Integer tenantId;
 
     private Integer userId;
 
-    private String phone;
+    private String nickName;
 
-    private String openId;
+    private String phone;
 
     private String unionId;
 
-    private String nickName;
+    private String openId;
 
     private String wxId;
 
@@ -36,5 +36,5 @@ public class TokenInfoDTO implements Serializable {
 
     private Long createdAt;
 
-    private Map<String, Object> extendMap = new HashMap<>();
+    private Map<String, Object> extendMap;
 }

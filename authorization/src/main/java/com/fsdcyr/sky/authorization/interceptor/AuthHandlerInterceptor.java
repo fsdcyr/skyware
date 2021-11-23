@@ -1,7 +1,10 @@
 package com.fsdcyr.sky.authorization.interceptor;
 
 import com.fsdcyr.sky.authorization.AuthHandler;
+import com.fsdcyr.sky.authorization.UserContext;
+import com.fsdcyr.sky.authorization.UserContextHolder;
 import com.fsdcyr.sky.authorization.annotation.LoginRequired;
+import com.fsdcyr.sky.common.exception.SkywareExceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -34,10 +37,15 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
         boolean requireLogin = isRequireLogin(method);
         if (requireLogin) {
-            Object currentUser = authHandler.getLoginUser(request);
-            if (currentUser == null) {
-                throw new RuntimeException("用户未登录");
+            boolean valid = authHandler.validate(request);
+            if (!valid) {
+                throw SkywareExceptions.UN_LOGIN;
             }
+            UserContext userContext = authHandler.getLoginUser(request);
+            if (userContext == null) {
+                throw SkywareExceptions.UN_LOGIN;
+            }
+            UserContextHolder.save(userContext);
         }
         return true;
     }
@@ -48,5 +56,6 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         }
         return false;
     }
+
 
 }
