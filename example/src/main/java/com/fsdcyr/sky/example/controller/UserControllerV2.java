@@ -1,9 +1,8 @@
 package com.fsdcyr.sky.example.controller;
 
-import com.fsdcyr.sky.authorization.UserContext;
-import com.fsdcyr.sky.authorization.UserContextFactory;
-import com.fsdcyr.sky.authorization.UserContextManager;
-import com.fsdcyr.sky.authorization.annotation.LoginUser;
+import com.fsdcyr.sky.authorization.annotation.RequiresLogin;
+import com.fsdcyr.sky.authorization.context.AuthContext;
+import com.fsdcyr.sky.authorization.context.AuthContextManager;
 import com.fsdcyr.sky.common.annotation.ApiVersion;
 import com.fsdcyr.sky.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserControllerV2 {
 
     @Autowired
-    private UserContextFactory userContextFactory;
-    @Autowired
-    private UserContextManager userContextManager;
+    private AuthContextManager authContextManager;
 
+    @RequiresLogin
     @GetMapping
-    public String get(@LoginUser UserContext userContext) {
-        Integer userId = userContext.getUserId();
+    public String get(AuthContext authContext) {
+        Integer userId = authContext.getUserId();
         return userId + "";
     }
 
@@ -41,19 +39,19 @@ public class UserControllerV2 {
      * @return
      */
     @GetMapping("/login")
-    public UserContext login(@RequestParam("phone") String phone, @RequestParam("password") String password) {
+    public AuthContext login(@RequestParam("phone") String phone, @RequestParam("password") String password) {
         // userService.valid
         User user = new User();
         user.setId(1);
         user.setNickName("小明");
         user.setPhone(phone);
-        UserContext userContext = userContextFactory.make(user);
-        return userContext;
+        return null;
     }
 
+    @RequiresLogin
     @PostMapping("/logout")
-    public void logout(@LoginUser UserContext userContext) {
-        userContextManager.remove(userContext);
+    public void logout() {
+        authContextManager.remove();
     }
 
 }

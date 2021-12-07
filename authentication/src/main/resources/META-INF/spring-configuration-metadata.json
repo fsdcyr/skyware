@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "authentication",
+      "type": "com.fsdcyr.sky.authorization.config.AuthenticationProperties",
+      "sourceType": "com.fsdcyr.sky.authorization.config.AuthenticationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "authentication.exclude-path-pattern",
+      "type": "java.lang.String",
+      "description": "不进行拦截的路径，多个用逗号分隔",
+      "sourceType": "com.fsdcyr.sky.authorization.config.AuthenticationProperties",
+      "defaultValue": "\/login"
+    },
+    {
+      "name": "authentication.prefix",
+      "type": "java.lang.String",
+      "description": "token缓存前缀",
+      "sourceType": "com.fsdcyr.sky.authorization.config.AuthenticationProperties"
+    }
+  ],
+  "hints": []
+}
